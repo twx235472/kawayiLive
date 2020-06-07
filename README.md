@@ -10,7 +10,7 @@
   4. 总线模块  
  ***
 # 逻辑架构图（待完善）
-
+![逻辑视图](https://www.processon.com/view/link/5c83a123e4b0f88919a77eb0)
 
 ***
 # 技术架构图
