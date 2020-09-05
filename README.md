@@ -16,25 +16,9 @@
 ## 技术架构图
 
 ```sequence
-Title: Here is a title
-A->B: Normal line
-B-->C: Dashed line
-C->>D: Open arrow
-D-->>A: Dashed open arrow
-```
-  
-```flow
-st=>start: Start|past:>http://www.baidu.com
-e=>end:  Ende|future:>http://www.baidu.com
-op1=>operation:  My Operation
-op2=>operation:  Stuff|current
-sub1=>subroutine:  My Subroutine|invalid
-cond=>condition:  Yes or No|approved:>http://www.google.com
-c2=>condition:  Good idea|rejected
-io=>inputoutput:  catch something...|future
-st->op1(right)->cond
-cond(yes, right)->c2
-cond(no)->sub1(left)->op1
-c2(yes)->io->e
-c2(no)->op2->e  
+对象A->对象B: 对象B你好吗?（请求）
+Note right of 对象B: 对象B的描述
+Note left of 对象A: 对象A的描述(提示)
+对象B-->对象A: 我很好(响应)
+对象A->对象B: 你真的好吗？
 ```
