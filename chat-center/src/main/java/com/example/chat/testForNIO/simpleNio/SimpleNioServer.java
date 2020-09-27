@@ -1,5 +1,6 @@
 package com.example.chat.testForNIO.simpleNio;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -11,8 +12,9 @@ import java.util.Set;
 public class SimpleNioServer {
     public static void main(String[] args) throws Exception{
         ServerSocketChannel open = ServerSocketChannel.open();
-        InetSocketAddress inetSocketAddress = new InetSocketAddress(6000);
+        InetSocketAddress inetSocketAddress = new InetSocketAddress(6666);
         open.socket().bind(inetSocketAddress);
+        open.configureBlocking(false);
 
         Selector selector = Selector.open();
         open.register(selector, SelectionKey.OP_ACCEPT);
@@ -35,14 +37,23 @@ public class SimpleNioServer {
                 }
                 if(next.isReadable()){
                     SocketChannel channel = (SocketChannel) next.channel();
-                    ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                    int read = channel.read(byteBuffer);
-                    if(read == -1){
-                        System.out.println("client is disconnect!,channel= " + channel.hashCode());
-                        channel.close();
-                        continue;
+                    try{
+                        ByteBuffer byteBuffer = ByteBuffer.allocate(2014);
+                        int read = channel.read(byteBuffer);
+                        if(read == -1){
+                            System.out.println("client out!");
+                            next.cancel();
+                            channel.socket().close();
+                            continue;
+                        }
+                        System.out.println("get Message: "+new String(byteBuffer.array())+" channel: "+channel.hashCode());
+
+                    }catch (IOException e)
+                    {
+                        System.out.println("client out but not correct");
+                        next.cancel();
+                        channel.socket().close();
                     }
-                    System.out.println("get Message: "+new String(byteBuffer.array())+" channel: "+channel.hashCode());
                 }
                 iterator.remove();
             }
