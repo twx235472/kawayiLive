@@ -1,4 +1,4 @@
-package com.example.chat.test;
+package com.example.chat.testForNIO.test;
 
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;

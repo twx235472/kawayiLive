@@ -45,15 +45,21 @@ public class NIOChatRoomServer {
                             SocketChannel accept = serverSocketChannel.accept();
                             accept.configureBlocking(false);
                             accept.register(selector,SelectionKey.OP_READ);
-                            System.out.println("client "+accept.getRemoteAddress()+" connect!...");
+                            String msg = "client "+accept.getRemoteAddress()+" connect!...";
+                            System.out.println(msg);
+                            sendMsgToOther(msg,accept);
                         }
                         if(next.isReadable()){
+                            SocketChannel channel = null;
                             try {
                                 //read msg
-                                SocketChannel channel = (SocketChannel)next.channel();
+                                channel = (SocketChannel)next.channel();
                                 ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
                                 int read = channel.read(byteBuffer);
                                 if(read == -1){
+                                    System.out.println("disconnect  "+channel.getRemoteAddress());
+                                    String str = new String(channel.getRemoteAddress()+" disconnect!");
+                                    sendMsgToOther(str,channel);
                                     next.cancel();
                                     channel.close();
                                 }
@@ -63,6 +69,9 @@ public class NIOChatRoomServer {
                                 //send msg to other client
                                 sendMsgToOther(msg,channel);
                             }catch (IOException e){
+                                System.out.println("disconnect  "+channel.getRemoteAddress());
+                                String str = new String(channel.getRemoteAddress()+" disconnect!");
+                                sendMsgToOther(str,channel);
                                 next.cancel();
                                 next.channel().close();
                             }

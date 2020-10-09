@@ -45,7 +45,14 @@ public class NioChatRoomClient {
                         SocketChannel channel = (SocketChannel)next.channel();
                         channel.configureBlocking(false);
                         ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
-                        channel.read(byteBuffer);
+                        int read = channel.read(byteBuffer);
+                        if(read == -1){
+                            System.out.println("disconnnect from server!");
+                            next.cancel();
+                            next.channel().close();
+                            return;
+                        }
+                        System.out.println(channel.getRemoteAddress() +" say:" + new String(byteBuffer.array()));
                     }
                     iterator.remove();
                 }
