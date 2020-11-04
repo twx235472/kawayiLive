@@ -7,6 +7,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class RoomEntity extends BaseEntity{
     private static final long serialVersionUID = 1L;
+    /**
+     * id
+     */
+    private String id;
 
     /**
      * 房间名称
@@ -21,12 +25,12 @@ public class RoomEntity extends BaseEntity{
     /**
      * 房间的ip地址
      */
-    private String roomIp;
+    private String roomAdress;
 
     /**
      * 房间的端口号
      */
-    private String roomPort;
+    private Integer roomPort;
 
     /**
      * 备注

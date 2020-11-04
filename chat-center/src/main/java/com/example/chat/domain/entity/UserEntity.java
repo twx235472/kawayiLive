@@ -13,6 +13,11 @@ import lombok.NoArgsConstructor;
 public class UserEntity extends BaseEntity{
 
     /**
+     * userid
+     */
+    private String id;
+
+    /**
      * 用户名称
      */
     private String userName;

@@ -35,7 +35,7 @@ public class ChatServer {
         bootstrap = new ServerBootstrap();
     }
 
-    public String createServer(Integer port){
+    public String run(Integer port){
         if (StringUtils.isEmpty(port)){
             return null;
         }
