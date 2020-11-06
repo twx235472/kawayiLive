@@ -23,6 +23,8 @@ public class RoomServer {
         //TODO:返回码定义
         //TODO：controller的通用返回类型
         //TODO：定义个工具类，根据配置文件的接口定义，设置server绑定的服务范围，最优化选择绑定的端口，负载均衡？
+        //TODO：配置一下logger类，self4j，log的位置
+        //TODO：引入sawgger
         String address = chatServer.run(getOneAvaliblePort());
         if (address != null) {
             RoomEntity roomEntity = new RoomEntity();
